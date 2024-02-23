@@ -1,0 +1,19 @@
+{
+  "name": "web_worker_storage",
+  "version": "1.0.0",
+  "description": "A WebStorage interface backed by a web worker",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agentS/web_worker_storage.git"
+  },
+  "author": "Lukas Schoerghuber",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/agentS/web_worker_storage/issues"
+  },
+  "homepage": "https://github.com/agentS/web_worker_storage#readme"
+}
