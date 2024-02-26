@@ -11,7 +11,7 @@ enum WorkerStorageAction {
 	Key = "keyAt",
 };
 
-export class WorkerStorage {
+export class WebWorkerStorage {
 	private readonly worker: Worker;
 
 	constructor() {
