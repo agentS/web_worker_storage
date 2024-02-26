@@ -17,7 +17,7 @@ const myWebWorker = () => {
 
 		const result: any = {
 			completed: true,
-			action: storageMessage.action,
+			action: structuredClone(storageMessage.action as string),
 		};
 
 		switch (storageMessage.action) {

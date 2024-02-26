@@ -62,7 +62,7 @@ export class WebWorkerStorage {
 
 			const listener = (event: MessageEvent<any>) => {
 				if (event.data.action !== action) {
-					reject(new Error(`Received unexpected action ${event.data.action} in getItem function, have you awaited the calls?`));
+					reject(new Error(`Received unexpected action ${event.data.action} in ${action} function, have you awaited the calls?`));
 				} else {
 					switch (action) {
 						case WorkerStorageAction.GetItem:
