@@ -52,15 +52,15 @@ export class WebWorkerStorage {
 
 	private createEventPromiseWrapper<T>(action: WorkerStorageAction, key?: string | number, payload?: T): Promise<T | undefined | null> {
 		return new Promise((resolve, reject) => {
-			const interval = setInterval(() => {
+			const interval = setTimeout(() => {
 				// console.log("clearing interval due to timeout");
 				clearInterval(interval);
 				reject(new Error("No response from worker received"));
-				this.worker.onmessage = null;
+				this.worker.removeEventListener("message", listener);
 				clearInterval(interval);
 			}, 500);
 
-			this.worker.onmessage = (event) => {
+			const listener = (event: MessageEvent<any>) => {
 				if (event.data.action !== action) {
 					reject(new Error(`Received unexpected action ${event.data.action} in getItem function, have you awaited the calls?`));
 				} else {
@@ -76,9 +76,10 @@ export class WebWorkerStorage {
 					}
 
 					clearInterval(interval);
-					this.worker.onmessage = null;
+					this.worker.removeEventListener("message", listener);
 				}
-			};
+			}
+			this.worker.addEventListener("message", listener);
 
 			// console.log("posting message to worker");
 			this.worker.postMessage({ action, key, payload });
