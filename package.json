@@ -1,12 +1,12 @@
 {
   "name": "web_worker_storage",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "A WebStorage interface backed by a web worker",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npx webpack --mode=production --config webpack.config.js",
-    "build_development": "npx webpack --mode=development --config webpack.config.js"
+    "build": "npx webpack --mode=production --config webpack_web_worker.config.js && npx webpack --mode=production --config webpack.config.js",
+    "build_development": "npx webpack --mode=development --config webpack_web_worker.config.js && npx webpack --mode=development --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -19,9 +19,13 @@
   },
   "homepage": "https://github.com/agentS/web_worker_storage#readme",
   "devDependencies": {
+    "copy-webpack-plugin": "^12.0.2",
     "ts-loader": "^9.5.1",
     "typescript": "^5.3.3",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "idb-keyval": "^6.2.1"
   }
 }
