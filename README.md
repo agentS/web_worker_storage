@@ -5,7 +5,7 @@ This module provides an asynchronous web storage compatible wrapper around a web
 ## Example Usage
 
 ```js
-import { WebWorkerStorage } from "./web_storage_worker.js";
+import { WebWorkerStorage } from "web_storage_worker";
 
 (async () => {
 	const myWebWorkerStorage = new WebWorkerStorage();

@@ -52,12 +52,12 @@ export class WebWorkerStorage {
 
 	private createEventPromiseWrapper<T>(action: WorkerStorageAction, key?: string | number, payload?: T): Promise<T | undefined | null> {
 		return new Promise((resolve, reject) => {
-			const interval = setTimeout(() => {
+			const timeout = setTimeout(() => {
 				// console.log("clearing interval due to timeout");
-				clearInterval(interval);
+				clearTimeout(timeout);
 				reject(new Error("No response from worker received"));
 				this.worker.removeEventListener("message", listener);
-				clearInterval(interval);
+				clearTimeout(timeout);
 			}, 500);
 
 			const listener = (event: MessageEvent<any>) => {
@@ -75,7 +75,7 @@ export class WebWorkerStorage {
 							resolve(null);
 					}
 
-					clearInterval(interval);
+					clearTimeout(timeout);
 					this.worker.removeEventListener("message", listener);
 				}
 			}
