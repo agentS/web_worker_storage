@@ -52,17 +52,19 @@ export class WebWorkerStorage {
 
 	private createEventPromiseWrapper<T>(action: WorkerStorageAction, key?: string | number, payload?: T): Promise<T | undefined | null> {
 		return new Promise((resolve, reject) => {
+			const identifier = this.createIdentifier(action);
+
 			const timeout = setTimeout(() => {
 				// console.log("clearing interval due to timeout");
 				clearTimeout(timeout);
 				reject(new Error("No response from worker received"));
 				this.worker.removeEventListener("message", listener);
-				clearTimeout(timeout);
 			}, 500);
 
 			const listener = (event: MessageEvent<any>) => {
-				if (event.data.action !== action) {
-					reject(new Error(`Received unexpected action ${event.data.action} in ${action} function, have you awaited the calls?`));
+				// console.log(`left hand side: ${event.data.identifier}, right hand side: ${identifier}`)
+				if (event.data.identifier !== identifier) {
+					return;
 				} else {
 					switch (action) {
 						case WorkerStorageAction.GetItem:
@@ -82,7 +84,14 @@ export class WebWorkerStorage {
 			this.worker.addEventListener("message", listener);
 
 			// console.log("posting message to worker");
-			this.worker.postMessage({ action, key, payload });
+			this.worker.postMessage({ identifier, action, key, payload });
 		});
+	}
+
+	private createIdentifier(action: WorkerStorageAction): string {
+		const randomNumber = Math.random();
+		const currentTimestamp = Date.now();
+
+		return `${action}_${randomNumber}_${currentTimestamp}`;
 	}
 };

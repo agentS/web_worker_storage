@@ -1,6 +1,7 @@
 import { get, set, clear, del, keys } from "idb-keyval";
 
 interface StorageMessage {
+	identifier: string;
 	action: string;
 	key?: string | number;
 	payload?: string;
@@ -11,13 +12,17 @@ const myWebWorker = () => {
 		// console.log("worker received message");
 
 		const storageMessage: StorageMessage = message.data;
+		if (storageMessage.identifier === undefined || storageMessage.identifier === null) {
+			throw new Error("Invalid message identifier provided, please provider a unique ID.");
+		}
 		if (storageMessage.action === undefined || storageMessage.action === null) {
 			throw new Error("Invalid worker message payload, action is required.");
 		}
 
 		const result: any = {
+			identifier: structuredClone(storageMessage.identifier),
 			completed: true,
-			action: structuredClone(storageMessage.action as string),
+			action: structuredClone(storageMessage.action),
 		};
 
 		switch (storageMessage.action) {
