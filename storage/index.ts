@@ -22,8 +22,9 @@ export class WebWorkerStorage {
 		// console.log("---");
 		// console.log(workerCode);
 		// console.log("---");
-		const workerBlob = new Blob([ workerCode ], { type: "text/javascript" });
-		this.worker = new Worker(window.URL.createObjectURL(workerBlob));
+		// const workerBlob = new Blob([ workerCode ], { type: "text/javascript" });
+		// this.worker = new Worker(window.URL.createObjectURL(workerBlob));
+		this.worker = new Worker(new URL("./web_worker.js", import.meta.url));
 	}
 
 	key(index: number): Promise<string> {

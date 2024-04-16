@@ -131,3 +131,4 @@ dist
 
 # Intermediate build output
 storage/web_worker.txt
+storage/web_worker.js

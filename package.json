@@ -1,12 +1,12 @@
 {
   "name": "web_worker_storage",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A WebStorage interface backed by a web worker",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npx webpack --mode=production --config webpack_web_worker.config.js && cp ./dist/web_worker.js ./storage/web_worker.txt && npx webpack --mode=production --config webpack.config.js && mv dist/storage/*.d.ts* dist/ && mv dist/web_worker/*.d.ts* dist/",
-    "build_development": "npx webpack --mode=development --config webpack_web_worker.config.js && cp ./dist/web_worker.js ./storage/web_worker.txt && npx webpack --mode=development --config webpack.config.js && mv dist/storage/*.d.ts* dist/ && mv dist/web_worker/*.d.ts* dist/"
+    "build": "npx webpack --mode=production --config webpack_web_worker.config.js && cp ./dist/web_worker.js ./storage/web_worker.js && npx webpack --mode=production --config webpack.config.js && mv dist/storage/*.d.ts* dist/ && mv dist/web_worker/*.d.ts* dist/",
+    "build_development": "npx webpack --mode=development --config webpack_web_worker.config.js && cp ./dist/web_worker.js ./storage/web_worker.js && npx webpack --mode=development --config webpack.config.js && mv dist/storage/*.d.ts* dist/ && mv dist/web_worker/*.d.ts* dist/"
   },
   "repository": {
     "type": "git",
